@@ -3,7 +3,7 @@ package com.dinno.Auth.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Users {
+public class User {
 
     // Campos de usuario
     private UUID id;
@@ -12,25 +12,26 @@ public class Users {
     private String email;
     private String passwordHash;
 
-    //Cuenta Suspendida - eliminada
+    // Cuenta Suspendida - eliminada
     private boolean isActive;
     private boolean isDeleted;
-
 
     // Campos de Auditoria
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Users(String username, String email, String passwordHash, boolean isActive, boolean isDeleted, LocalDateTime deletedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(String username, String email, String passwordHash) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
         this.isActive = true;
         this.isDeleted = false;
-        this.deletedAt = deletedAt;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public User() {
     }
 
     public void suspendAccount() {
@@ -46,7 +47,7 @@ public class Users {
     }
 
     public void restoreAccount() {
-        if (this.deletedAt != null && this.deletedAt.isBefore((LocalDateTime.now().minusDays(30)))){
+        if (this.deletedAt != null && this.deletedAt.isBefore((LocalDateTime.now().minusDays(30)))) {
             throw new RuntimeException("El periodo de gracia de 30 días a expirado");
         }
         this.isDeleted = false;

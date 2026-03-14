@@ -1,4 +1,4 @@
-package com.dinno.Auth.domain.exception;
+package com.dinno.Auth.application.exception;
 
 public class AccountDeleteException extends RuntimeException {
 
