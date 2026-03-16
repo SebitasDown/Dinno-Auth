@@ -1,4 +1,4 @@
-package com.dinno.Auth.domain.port.in.register;
+package com.dinno.Auth.domain.port.in;
 
 public record RegisterCommand(
         String username,
