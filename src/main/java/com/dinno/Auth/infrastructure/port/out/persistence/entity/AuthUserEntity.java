@@ -14,11 +14,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("users")
-public class UserEntity {
+@Table("auth_users")
+public class AuthUserEntity {
     @Id
     private UUID id;
-    private String username;
     private String email;
     private String password;
     private boolean isActive;

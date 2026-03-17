@@ -1,8 +1,8 @@
 package com.dinno.Auth.infrastructure.port.in.web.mapper;
 
-import com.dinno.Auth.domain.model.User;
+import com.dinno.Auth.domain.model.AuthUser;
 import com.dinno.Auth.infrastructure.port.in.web.dto.response.RegisterResponseDto;
-import com.dinno.Auth.infrastructure.port.out.persistence.entity.UserEntity;
+import com.dinno.Auth.infrastructure.port.out.persistence.entity.AuthUserEntity;
 import org.mapstruct.Mapper;
 
 import org.mapstruct.Mapping;
@@ -10,10 +10,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserDtoMapper {
     @Mapping(source = "passwordHash", target = "password")
-    UserEntity toEntity(User user);
+    AuthUserEntity toEntity(AuthUser user);
 
     @Mapping(source = "password", target = "passwordHash")
-    User toDomain(UserEntity userEntity);
+    AuthUser toDomain(AuthUserEntity userEntity);
 
-    RegisterResponseDto toResponse(User user);
+    RegisterResponseDto toResponse(AuthUser user);
 }

@@ -2,7 +2,7 @@ package com.dinno.Auth.application.service;
 
 import com.dinno.Auth.application.exception.AccountDeleteException;
 import com.dinno.Auth.application.exception.EmailAlreadyExistException;
-import com.dinno.Auth.domain.model.User;
+import com.dinno.Auth.domain.model.AuthUser;
 import com.dinno.Auth.domain.port.in.RegisterCommand;
 import com.dinno.Auth.domain.port.in.RegisterUserUseCase;
 import com.dinno.Auth.domain.port.out.PasswordHasherPort;
@@ -27,7 +27,7 @@ public class RegisterUserUseCaseImpl implements RegisterUserUseCase {
     // Función para registrar usuarios
     @Override
     @Transactional
-    public Mono<User> register(RegisterCommand registerCommand) {
+    public Mono<AuthUser> register(RegisterCommand registerCommand) {
         return userRepository.findByEmail(registerCommand.email())
                 .flatMap(existingUser -> {
                     if (existingUser.isDeleted()) {
@@ -41,11 +41,11 @@ public class RegisterUserUseCaseImpl implements RegisterUserUseCase {
                 })
                 .switchIfEmpty(Mono.defer(() -> {
                     log.info("Registering new user with email: {}", registerCommand.email());
-                    return userRepository.save(new User(
+                    return userRepository.save(new AuthUser(
                             registerCommand.username(),
                             registerCommand.email(),
                             passwordHasherPort.hash(registerCommand.password())));
                 }))
-                .cast(User.class);
+                .cast(AuthUser.class);
     }
 }

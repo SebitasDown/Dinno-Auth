@@ -3,7 +3,7 @@ package com.dinno.Auth.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class User {
+public class AuthUser {
 
     // Campos de usuario
     private UUID id;
@@ -21,7 +21,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(String username, String email, String passwordHash) {
+    public AuthUser(String username, String email, String passwordHash) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -31,7 +31,7 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public User() {
+    public AuthUser() {
     }
 
     public void suspendAccount() {

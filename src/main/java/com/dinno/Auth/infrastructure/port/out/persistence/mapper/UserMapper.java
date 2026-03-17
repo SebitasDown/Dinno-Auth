@@ -1,7 +1,7 @@
 package com.dinno.Auth.infrastructure.port.out.persistence.mapper;
 
-import com.dinno.Auth.domain.model.User;
-import com.dinno.Auth.infrastructure.port.out.persistence.entity.UserEntity;
+import com.dinno.Auth.domain.model.AuthUser;
+import com.dinno.Auth.infrastructure.port.out.persistence.entity.AuthUserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -10,10 +10,10 @@ public interface UserMapper {
     @Mapping(source = "passwordHash", target = "password")
     @Mapping(source = "active", target = "isActive")
     @Mapping(source = "deleted", target = "isDeleted")
-    UserEntity toEntity(User user);
+    AuthUserEntity toEntity(AuthUser user);
 
     @Mapping(source = "password", target = "passwordHash")
     @Mapping(source = "active", target = "active")
     @Mapping(source = "deleted", target = "deleted")
-    User toDomain(UserEntity userEntity);
+    AuthUser toDomain(AuthUserEntity userEntity);
 }
