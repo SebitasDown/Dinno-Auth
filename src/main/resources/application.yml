@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+
+  # Configuración Reactiva para el código (Database)
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  # Configuración para Flyway (Migraciones automáticas)
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    baseline-on-migrate: true
+
+  # Configuración JDBC (Necesaria para que Flyway y Drivers clásicos funcionen)
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+# Configuración del Cliente Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+# Parámetros de Seguridad para JWT
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:900}
+  refresh-expiration: ${JWT_REF_EXP:86400}
