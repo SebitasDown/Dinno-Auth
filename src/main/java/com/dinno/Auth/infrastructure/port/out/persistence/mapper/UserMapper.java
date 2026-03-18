@@ -4,6 +4,7 @@ import com.dinno.Auth.domain.model.AuthUser;
 import com.dinno.Auth.infrastructure.port.out.persistence.entity.AuthUserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

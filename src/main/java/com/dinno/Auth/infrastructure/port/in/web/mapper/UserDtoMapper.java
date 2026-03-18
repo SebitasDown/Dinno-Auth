@@ -9,11 +9,5 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserDtoMapper {
-    @Mapping(source = "passwordHash", target = "password")
-    AuthUserEntity toEntity(AuthUser user);
-
-    @Mapping(source = "password", target = "passwordHash")
-    AuthUser toDomain(AuthUserEntity userEntity);
-
     RegisterResponseDto toResponse(AuthUser user);
 }

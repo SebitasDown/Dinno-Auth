@@ -1,43 +1,43 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
     name: auth-service
 
-  # Configuración Reactiva para el código (Database)
+  # Configuración Reactiva (R2DBC) para Aiven
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: r2dbc:postgresql://pg-3759e90c-mazoosebas-b7e8.f.aivencloud.com:26554/defaultdb?sslmode=require
+    username: avnadmin
+    password: AVNS_WMpEb79mzdKhAo85Kj9
 
-  # Configuración para Flyway (Migraciones automáticas)
+  # Configuración para Flyway (Migraciones)
   flyway:
     enabled: true
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
-    user: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://pg-3759e90c-mazoosebas-b7e8.f.aivencloud.com:26554/defaultdb?sslmode=require
+    user: avnadmin
+    password: AVNS_WMpEb79mzdKhAo85Kj9
     baseline-on-migrate: true
 
-  # Configuración JDBC (Necesaria para que Flyway y Drivers clásicos funcionen)
+  # Configuración JDBC (Driver estándar)
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://pg-3759e90c-mazoosebas-b7e8.f.aivencloud.com:26554/defaultdb?sslmode=require
+    username: avnadmin
+    password: AVNS_WMpEb79mzdKhAo85Kj9
     driver-class-name: org.postgresql.Driver
 
-# Configuración del Cliente Eureka
+# Conexión a tu Eureka Server en Render
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL}
+      defaultZone: https://dinno-eurekaserver-1.onrender.com/eureka/
     fetch-registry: true
     register-with-eureka: true
   instance:
     prefer-ip-address: true
 
-# Parámetros de Seguridad para JWT
+# Configuración de Seguridad JWT
 jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION:900}
-  refresh-expiration: ${JWT_REF_EXP:86400}
+  secret: PonAquiUnaClaveSuperSeguraDeAlMenos32CaracteresJijiji
+  expiration: 900
+  refresh-expiration: 86400

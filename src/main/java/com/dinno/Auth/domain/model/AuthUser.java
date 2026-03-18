@@ -7,7 +7,6 @@ public class AuthUser {
 
     // Campos de usuario
     private UUID id;
-    private String avatarUrl;
     private String username;
     private String email;
     private String passwordHash;
@@ -64,13 +63,6 @@ public class AuthUser {
         this.id = id;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public String getUsername() {
         return username;
