@@ -37,7 +37,7 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public Mono<LoginResponseDto> login(@Valid @RequestBody LoginCommand command) {
-        log.info("Received login request for email: {}", command.email());
+        log.info("Received login request for identifier: {}", command.identifier());
         return loginUseCase.login(command)
                 .map(authMapper::toLoginResponseDto);
     }

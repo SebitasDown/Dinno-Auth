@@ -23,21 +23,22 @@ public class LoginServiceImpl implements LoginUseCase {
 
     @Override
     public Mono<AuthResult> login(LoginCommand command) {
-        return userRepository.findByEmail(command.email())
+        return userRepository.findByEmail(command.identifier())
+                .switchIfEmpty(userRepository.findByUsername(command.identifier()))
                 .switchIfEmpty(Mono.defer(() -> {
-                    log.warn("Login failed: User with email {} not found", command.email());
-                    return Mono.error(new InvalidCredentialsException("Invalid email or password"));
+                    log.warn("Login failed: User with identifier {} not found", command.identifier());
+                    return Mono.error(new InvalidCredentialsException("Invalid email/username or password"));
                 }))
                 .flatMap(user -> {
                     if (!passwordHasher.matches(command.password(), user.getPasswordHash())) {
-                        log.warn("Login failed: Incorrect password for email {}", command.email());
-                        return Mono.error(new InvalidCredentialsException("Invalid email or password"));
+                        log.warn("Login failed: Incorrect password for identifier {}", command.identifier());
+                        return Mono.error(new InvalidCredentialsException("Invalid email/username or password"));
                     }
                     if (!user.isActive()) {
-                        log.warn("Login failed: User {} is inactive", command.email());
+                        log.warn("Login failed: User {} is inactive", command.identifier());
                         return Mono.error(new UserInactiveException("User is inactive"));
                     }
-                    log.info("Login successful for email: {}", command.email());
+                    log.info("Login successful for identifier: {}", command.identifier());
                     return tokenGenerator.generateTokens(user);
                 });
     }
