@@ -1,8 +1,8 @@
 package com.dinno.Auth.domain.port.in;
 
-import com.dinno.Auth.domain.model.User;
+import com.dinno.Auth.domain.model.AuthUser;
 import reactor.core.publisher.Mono;
 
 public interface RegisterUserUseCase {
-    Mono<User> register(RegisterCommand registerCommand);
+    Mono<AuthUser> register(RegisterCommand registerCommand);
 }

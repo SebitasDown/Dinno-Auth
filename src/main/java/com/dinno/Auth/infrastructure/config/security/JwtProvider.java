@@ -1,7 +1,7 @@
 package com.dinno.Auth.infrastructure.config.security;
 
 import com.dinno.Auth.domain.model.AuthResult;
-import com.dinno.Auth.domain.model.User;
+import com.dinno.Auth.domain.model.AuthUser;
 import com.dinno.Auth.domain.port.out.TokenGeneratorPort;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -34,7 +34,7 @@ public class JwtProvider implements TokenGeneratorPort {
     }
 
     @Override
-    public Mono<AuthResult> generateTokens(User user) {
+    public Mono<AuthResult> generateTokens(AuthUser user) {
         return Mono.fromCallable(() -> {
             String accessToken = createToken(user.getId(), user.getEmail(), expiration);
             String refreshToken = createToken(user.getId(), user.getEmail(), refreshExpiration);
