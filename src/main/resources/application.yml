@@ -34,7 +34,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
 
 # Parámetros de Seguridad para JWT
 jwt:
