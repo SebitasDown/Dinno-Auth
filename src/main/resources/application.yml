@@ -41,3 +41,14 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION:900}
   refresh-expiration: ${JWT_REF_EXP:86400}
+
+# Configuración de Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
